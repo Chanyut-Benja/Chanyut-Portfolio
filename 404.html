@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | Chanyut Benjapalakorn</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#F8FAFC" id="meta-theme-color" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('chanyut-portfolio-theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+          var meta = document.getElementById('meta-theme-color');
+          if (meta) meta.setAttribute('content', saved === 'dark' ? '#0B0F19' : '#F8FAFC');
+        }
+      } catch (_) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .not-found-shell {
+      min-height: calc(100dvh - 96px);
+      display: grid;
+      place-items: center;
+      padding: 24px 20px;
+    }
+    .not-found-card {
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      padding: 40px 32px;
+    }
+    .not-found-code {
+      font-family: var(--font-mono);
+      font-size: clamp(3rem, 8vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .not-found-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-primary" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-secondary" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav-container" aria-label="Primary Navigation">
+      <a href="/" class="brand" aria-label="Chanyut Benjapalakorn Home">
+        <span class="brand-mark" aria-hidden="true">CB</span>
+        <span class="brand-text">
+          <span class="brand-name">chanyut</span><span class="brand-dot">.</span><span class="brand-domain">portfolio</span>
+        </span>
+      </a>
+      <div class="nav-actions">
+        <a href="/" class="btn btn-secondary" style="height: 36px; padding: 0 14px; border-radius: 999px; font-size: 0.82rem;">
+          ← Portfolio
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="not-found-shell">
+    <section class="bento-card not-found-card" aria-labelledby="not-found-heading">
+      <span class="mono-tag role-chip">HTTP 404 • ROUTE NOT FOUND</span>
+      <div class="not-found-code" aria-hidden="true">404</div>
+      <h1 id="not-found-heading" class="card-title" style="font-size: 1.5rem;">
+        This page doesn't exist
+      </h1>
+      <p class="hero-bio" style="max-width: 42ch;">
+        The link you followed may be outdated or mistyped. Return to the main portfolio to explore featured UX/UI and Full-Stack projects.
+      </p>
+      <div class="not-found-actions">
+        <a href="/" class="btn btn-primary">
+          <span>Back to Portfolio</span>
+        </a>
+        <a href="/assets/Chanyut_Benjapalakorn_CV.pdf" download="Chanyut_Benjapalakorn_CV.pdf" class="btn btn-secondary">
+          <span>Download CV (PDF)</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

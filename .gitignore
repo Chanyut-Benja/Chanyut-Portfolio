@@ -1,0 +1,19 @@
+# Vercel
+.vercel
+
+# Dependencies (if local dev tools are used)
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json

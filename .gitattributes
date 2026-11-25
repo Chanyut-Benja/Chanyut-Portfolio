@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+# Ensure binary assets are never corrupted by line-ending conversion
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
