@@ -35,11 +35,11 @@
   />
   <meta name="twitter:image" content="/assets/og-preview.png" />
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono, Noto Sans Thai -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
@@ -59,7 +59,7 @@
         if (saved === 'dark' || saved === 'light') {
           document.documentElement.setAttribute('data-theme', saved);
           var meta = document.getElementById('meta-theme-color');
-          if (meta) meta.setAttribute('content', saved === 'dark' ? '#0B0F19' : '#F8FAFC');
+          if (meta) meta.setAttribute('content', saved === 'dark' ? '#070B14' : '#F8FAFC');
         }
       } catch (_) {}
     })();
@@ -68,25 +68,28 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <!-- Subtle Ambient Grid & Glow Background -->
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow-primary" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow-secondary" aria-hidden="true"></div>
+  <!-- Background Stage: Blueprint Grid + Mouse-Following Ambient Glows -->
+  <div class="bg-stage" aria-hidden="true">
+    <div class="bg-grid-blueprint"></div>
+    <div class="bg-vignette"></div>
+    <div class="bg-glow-mouse bg-glow-cobalt"></div>
+    <div class="bg-glow-mouse bg-glow-cyan"></div>
+  </div>
 
   <!-- Skip Navigation Link for Accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Top Minimalist Floating Navbar -->
+  <!-- Top Minimalist Floating Navbar (from index.html) -->
   <header class="site-header">
     <nav class="nav-container" aria-label="Primary Navigation">
-      <a href="#top" class="brand" aria-label="Chanyut Benjapalakorn Home">
+      <a href="#about" class="brand" aria-label="Chanyut Benjapalakorn Home">
         <span class="brand-mark" aria-hidden="true">CB</span>
         <span class="brand-text">
           <span class="brand-name">chanyut</span><span class="brand-dot">.</span><span class="brand-domain">portfolio</span>
         </span>
       </a>
 
-      <div class="nav-links">
+      <div class="nav-links" id="nav-links">
         <a href="#about" class="nav-link">About</a>
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#projects" class="nav-link">Projects</a>
@@ -132,224 +135,362 @@
     </nav>
   </header>
 
-  <!-- Main Bento Grid Content -->
-  <main id="main-content" class="page-wrapper">
+  <!-- Fixed Scroll Indicator (Right) -->
+  <aside class="side-scroll-indicator" aria-hidden="true">
+    <span class="scroll-label">SCROLL</span>
+    <div class="scroll-track">
+      <div class="scroll-fill" id="scroll-fill"></div>
+    </div>
+  </aside>
+
+  <main id="main-content" class="hud-main">
     <!-- =========================================================
-         TOP BENTO GRID: HERO PROFILE (LEFT) + TECH STACK (RIGHT)
+         HERO SECTION: ABOUT (100VH ASYMMETRICAL SPLIT - from hero.html)
          ========================================================= -->
-    <section id="top" class="bento-grid bento-top" aria-label="Introduction and Core Capabilities">
-      <!-- 1. HERO & PROFILE CARD (Top-Left, Large) -->
-      <article id="about" class="bento-card hero-card span-7">
-        <div class="card-ambient-accent" aria-hidden="true"></div>
-
-        <div class="hero-top-bar">
-          <div class="status-badge" role="status">
-            <span class="status-dot-wrapper" aria-hidden="true">
+    <section id="about" class="hero-section" aria-label="Introduction and Core Focus">
+      <div class="hero-split">
+        <!-- Left Column (64%): Status, 3-Line Headline, Bio, CTAs -->
+        <div class="hero-left">
+          <div class="status-capsule reveal reveal-d1" role="status">
+            <span class="status-dot-wrap" aria-hidden="true">
               <span class="status-dot-ping"></span>
-              <span class="status-dot"></span>
+              <span class="status-dot-core"></span>
             </span>
-            <span class="status-text">Available for Internship 2027</span>
-          </div>
-          <span class="mono-tag role-chip">IT KMITL • YEAR 3</span>
-        </div>
-
-        <div class="hero-identity">
-          <div class="avatar-emblem" aria-hidden="true">
-            <div class="avatar-inner">
-              <span class="avatar-initials">CB</span>
-              <span class="avatar-sub">UX × DEV</span>
-            </div>
+            <span class="status-capsule-text">AVAILABLE FOR 2027 INTERNSHIP</span>
           </div>
 
-          <div class="hero-titles">
-            <p class="hero-en-name">PORTFOLIO • BANGKOK, THAILAND</p>
-            <h1 class="hero-th-name">
-              Chanyut Benjapalakorn <span class="nickname">(Yut)</span>
-            </h1>
-            <p class="hero-role">
-              <span class="role-highlight-ux">Product Designer</span>
-              <span class="role-amp">&amp;</span>
-              <span class="role-highlight-dev">Full-Stack Developer</span>
-            </p>
-          </div>
-        </div>
+          <h1 class="hero-headline reveal reveal-d2">
+            <span class="headline-line line-white">CRAFTING DIGITAL</span>
+            <span class="headline-line line-gradient">EXPERIENCES &amp;</span>
+            <span class="headline-line line-outlined">SCALABLE SYSTEMS</span>
+          </h1>
 
-        <p class="hero-bio">
-          3rd-year Information Technology student (Multimedia Track) at King Mongkut's Institute of Technology Ladkrabang (KMITL), blending user-centered UI/UX product design with reliable, production-ready backend and full-stack engineering.
-        </p>
+          <p class="hero-hud-bio reveal reveal-d3">
+            Hi, I'm <strong>Chanyut Benjapalakorn (Yut)</strong> — a 3rd-year Information Technology (Multimedia Track) student at KMITL, blending user-centered UI/UX design with Full-Stack Web development and interactive media.
+          </p>
 
-        <!-- Minimalist Discipline Synergy Strip -->
-        <div class="synergy-strip" aria-label="Core Strengths">
-          <div class="synergy-item">
-            <span class="synergy-kicker">UI/UX &amp; Product</span>
-            <span class="synergy-value">User Flow • Design System • Prototyping</span>
-          </div>
-          <div class="synergy-divider" aria-hidden="true"></div>
-          <div class="synergy-item">
-            <span class="synergy-kicker">Backend &amp; Architecture</span>
-            <span class="synergy-value">MVC • RESTful API • MySQL • Jest Testing</span>
+          <div class="hero-cta-group reveal reveal-d4">
+            <a href="#projects" class="hud-btn-primary">
+              <span>Explore Projects ↘</span>
+            </a>
+
+            <a
+              href="./assets/Chanyut_Benjapalakorn_CV.pdf"
+              download="Chanyut_Benjapalakorn_CV.pdf"
+              class="hud-btn-secondary"
+            >
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download CV</span>
+            </a>
           </div>
         </div>
 
-        <!-- Primary CTA Actions -->
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">
-            <span>View Projects</span>
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7 17L17 7"></path>
-              <path d="M7 7h10v10"></path>
-            </svg>
-          </a>
+        <!-- Right Column (36%, Bottom-Aligned): 3 Interactive Focus Cards -->
+        <div class="hero-right reveal reveal-d5" aria-label="Core Focus Areas">
+          <article class="focus-card">
+            <div class="focus-card-header">
+              <h2 class="focus-card-kicker">
+                <span class="index">01 /</span> PRODUCT DESIGN
+              </h2>
+              <span class="focus-card-arrow" aria-hidden="true">←</span>
+            </div>
+            <p class="focus-card-desc">UI/UX, Prototyping &amp; User-Centered Systems</p>
+          </article>
 
-          <a
-            href="./assets/Chanyut_Benjapalakorn_CV.pdf"
-            download="Chanyut_Benjapalakorn_CV.pdf"
-            class="btn btn-secondary"
-          >
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            <span>Download CV</span>
-          </a>
+          <article class="focus-card">
+            <div class="focus-card-header">
+              <h2 class="focus-card-kicker">
+                <span class="index">02 /</span> FULL-STACK DEV
+              </h2>
+              <span class="focus-card-arrow" aria-hidden="true">←</span>
+            </div>
+            <p class="focus-card-desc">Node.js, Express, MySQL &amp; RESTful APIs</p>
+          </article>
 
-          <button
-            type="button"
-            class="btn btn-ghost copy-email-btn"
-            data-copy="chanyut.benjapala@gmail.com"
-            data-label-default="chanyut.benjapala@gmail.com"
-            aria-label="Copy email chanyut.benjapala@gmail.com"
-          >
-            <svg class="icon-copy" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-            <svg class="icon-check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span class="copy-btn-text">chanyut.benjapala@gmail.com</span>
-          </button>
+          <article class="focus-card">
+            <div class="focus-card-header">
+              <h2 class="focus-card-kicker">
+                <span class="index">03 /</span> GAME &amp; 3D MEDIA
+              </h2>
+              <span class="focus-card-arrow" aria-hidden="true">←</span>
+            </div>
+            <p class="focus-card-desc">Unity (C#), Autodesk Maya &amp; Interactive 3D</p>
+          </article>
         </div>
-      </article>
+      </div>
 
-      <!-- 2. TECH STACK & DESIGN TOOLS CARD (Top-Right) -->
-      <article id="skills" class="bento-card stack-card span-5">
-        <div class="card-header">
-          <div>
-            <span class="section-eyebrow">TOOLKIT &amp; CAPABILITIES</span>
-            <h2 class="card-title">Tech Stack &amp; Tools</h2>
-          </div>
-          <span class="card-badge-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-              <polyline points="2 17 12 22 22 17"></polyline>
-              <polyline points="2 12 12 17 22 12"></polyline>
-            </svg>
-          </span>
-        </div>
-
-        <div class="stack-groups">
-          <!-- Category 1: Design & 3D -->
-          <div class="stack-group">
-            <div class="stack-group-header">
-              <span class="group-dot dot-cyan" aria-hidden="true"></span>
-              <h3 class="stack-group-title">Design &amp; 3D</h3>
-            </div>
-            <div class="pill-list">
-              <span class="tech-pill pill-design">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2H8.5a3.5 3.5 0 0 0 0 7H12V2Z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2Z"/><path d="M12 9h3.5a3.5 3.5 0 1 1 0 7H12V9Z"/><path d="M12 9H8.5a3.5 3.5 0 0 0 0 7H12V9Z"/><path d="M8.5 16a3.5 3.5 0 1 0 3.5 3.5V16H8.5Z"/></svg>
-                Figma
-              </span>
-              <span class="tech-pill pill-design">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
-                Adobe Illustrator
-              </span>
-              <span class="tech-pill pill-design">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                Autodesk Maya
-              </span>
-              <span class="tech-pill pill-design">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-1 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9z"/></svg>
-                Substance 3D Painter
-              </span>
-            </div>
-          </div>
-
-          <!-- Category 2: Frontend & Backend -->
-          <div class="stack-group">
-            <div class="stack-group-header">
-              <span class="group-dot dot-blue" aria-hidden="true"></span>
-              <h3 class="stack-group-title">Frontend &amp; Backend</h3>
-            </div>
-            <div class="pill-list">
-              <span class="tech-pill pill-dev">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5z"/><path d="M9 12l2 2 4-4"/></svg>
-                Node.js
-              </span>
-              <span class="tech-pill pill-dev">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                Express.js
-              </span>
-              <span class="tech-pill pill-dev">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                MySQL
-              </span>
-              <span class="tech-pill pill-dev">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                RESTful APIs
-              </span>
-              <span class="tech-pill pill-dev">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-                HTML/CSS/JS
-              </span>
-              <span class="tech-pill pill-dev">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                Jest
-              </span>
-            </div>
-          </div>
-
-          <!-- Category 3: Game & Cloud -->
-          <div class="stack-group">
-            <div class="stack-group-header">
-              <span class="group-dot dot-hybrid" aria-hidden="true"></span>
-              <h3 class="stack-group-title">Game &amp; Cloud</h3>
-            </div>
-            <div class="pill-list">
-              <span class="tech-pill pill-cloud">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="4"/></svg>
-                Unity (C#)
-              </span>
-              <span class="tech-pill pill-cloud">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-                AWS (EC2, VPC, S3)
-              </span>
-              <span class="tech-pill pill-cloud">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
-                Git/GitHub
-              </span>
-            </div>
-          </div>
-        </div>
-      </article>
+      <!-- Bottom Scroll Cue -->
+      <div class="bottom-scroll-cue">
+        <a href="#skills" class="scroll-cue-text">[ SCROLL TO EXPLORE ]</a>
+      </div>
     </section>
 
     <!-- =========================================================
-         MIDDLE SECTION: FEATURED PROJECTS + INTERACTIVE FILTER BAR
+         SECTION 01: MY STACK (from hero.html)
          ========================================================= -->
-    <section id="projects" class="projects-section" aria-labelledby="projects-heading">
+    <section id="skills" class="stack-section" aria-labelledby="stack-heading">
+      <div class="stack-header">
+        <h2 id="stack-heading" class="stack-hud-tag">
+          <svg class="stack-asterisk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <line x1="12" y1="2" x2="12" y2="22"></line>
+            <line x1="3.34" y1="7" x2="20.66" y2="17"></line>
+            <line x1="20.66" y1="7" x2="3.34" y2="17"></line>
+          </svg>
+          <span><span class="stack-hud-index">01 //</span> MY STACK</span>
+        </h2>
+      </div>
+
+      <div class="stack-rows">
+        <!-- 01. FRONTEND -->
+        <div class="stack-row">
+          <div class="stack-category">
+            <span class="stack-cat-index">01 /</span>
+            <h3 class="stack-cat-title">FRONTEND</h3>
+          </div>
+
+          <div class="stack-items">
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #EAB308;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.5"/>
+                  <text x="12" y="16.5" text-anchor="middle" font-family="monospace" font-weight="700" font-size="10" fill="currentColor">JS</text>
+                </svg>
+              </span>
+              <span class="stack-name">JavaScript</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #E34F26;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 3l1.5 16L12 21l6.5-2L20 3H4z"/>
+                  <path d="M8.5 8h7l-.5 4h-6l.3 3 2.7.8 2.7-.8.2-2"/>
+                </svg>
+              </span>
+              <span class="stack-name">HTML5</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #0284C7;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 3l1.5 16L12 21l6.5-2L20 3H4z"/>
+                  <path d="M8 8h8l-1 8-3 1-3-1"/>
+                </svg>
+              </span>
+              <span class="stack-name">CSS3</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #06B6D4;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="14" height="10" rx="2"/>
+                  <rect x="14" y="10" width="8" height="10" rx="2"/>
+                </svg>
+              </span>
+              <span class="stack-name">Responsive Web</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02. BACKEND -->
+        <div class="stack-row">
+          <div class="stack-category">
+            <span class="stack-cat-index">02 /</span>
+            <h3 class="stack-cat-title">BACKEND</h3>
+          </div>
+
+          <div class="stack-items">
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #5FA04E;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                  <polygon points="12 2 20.5 7 20.5 17 12 22 3.5 17 3.5 7 12 2"/>
+                  <path d="M9 14.5c0 1 1.2 1.8 3 1.8s3-.8 3-1.8c0-1.2-1.5-1.5-3-1.8-1.5-.3-3-.6-3-1.8 0-1 1.2-1.8 3-1.8s3 .8 3 1.8"/>
+                </svg>
+              </span>
+              <span class="stack-name">Node.js</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon stack-icon-neutral" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-width="1.5"/>
+                  <text x="12" y="15.5" text-anchor="middle" font-family="monospace" font-weight="700" font-size="9.5" fill="currentColor">ex</text>
+                </svg>
+              </span>
+              <span class="stack-name">Express.js</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #3B82F6;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+              </span>
+              <span class="stack-name">RESTful APIs</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #A855F7;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="10" rx="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <span class="stack-name">JWT Auth</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #F43F5E;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 11l3 3L22 4"/>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+              </span>
+              <span class="stack-name">Jest</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #06B6D4;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                  <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
+                  <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/>
+                </svg>
+              </span>
+              <span class="stack-name">MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03. DESIGN & 3D -->
+        <div class="stack-row">
+          <div class="stack-category">
+            <span class="stack-cat-index">03 /</span>
+            <h3 class="stack-cat-title">DESIGN &amp; 3D</h3>
+          </div>
+
+          <div class="stack-items">
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #06B6D4;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2H8.5a3.5 3.5 0 0 0 0 7H12V2Z"/>
+                  <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2Z"/>
+                  <path d="M12 9h3.5a3.5 3.5 0 1 1 0 7H12V9Z"/>
+                  <path d="M12 9H8.5a3.5 3.5 0 0 0 0 7H12V9Z"/>
+                  <path d="M8.5 16a3.5 3.5 0 1 0 3.5 3.5V16H8.5Z"/>
+                </svg>
+              </span>
+              <span class="stack-name">Figma</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #F97316;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                  <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                  <path d="M2 2l7.586 7.586"/>
+                </svg>
+              </span>
+              <span class="stack-name">Adobe Illustrator</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #14B8A6;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </span>
+              <span class="stack-name">Autodesk Maya</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #EC4899;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+                  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+                  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+                  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-1 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9z"/>
+                </svg>
+              </span>
+              <span class="stack-name">Substance 3D</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04. TOOLS -->
+        <div class="stack-row">
+          <div class="stack-category">
+            <span class="stack-cat-index">04 /</span>
+            <h3 class="stack-cat-title">TOOLS</h3>
+          </div>
+
+          <div class="stack-items">
+            <div class="stack-item">
+              <span class="stack-icon stack-icon-neutral" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="6" y1="12" x2="10" y2="12"/>
+                  <line x1="8" y1="10" x2="8" y2="14"/>
+                  <line x1="15" y1="13" x2="15.01" y2="13"/>
+                  <line x1="18" y1="11" x2="18.01" y2="11"/>
+                  <rect x="2" y="6" width="20" height="12" rx="4"/>
+                </svg>
+              </span>
+              <span class="stack-name">Unity (C#)</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #F59E0B;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                </svg>
+              </span>
+              <span class="stack-name">AWS</span>
+            </div>
+
+            <div class="stack-item">
+              <span class="stack-icon" style="color: #F97316;" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="18" r="3"/>
+                  <circle cx="6" cy="6" r="3"/>
+                  <path d="M6 21V9a9 9 0 0 0 9 9"/>
+                </svg>
+              </span>
+              <span class="stack-name">Git / GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 02: FEATURED WORKS (index.html data in hero.html HUD style)
+         ========================================================= -->
+    <section id="projects" class="hud-section projects-section" aria-labelledby="projects-heading">
       <div class="section-bar">
         <div class="section-bar-text">
-          <span class="section-eyebrow">SELECTED WORKS • CASE STUDIES</span>
-          <h2 id="projects-heading" class="section-title">Featured Projects</h2>
-          <p class="section-subtitle">
-            Click any project card to explore the problem statement, system architecture, and in-depth design process.
+          <div class="stack-hud-tag">
+            <svg class="stack-asterisk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <line x1="12" y1="2" x2="12" y2="22"></line>
+              <line x1="3.34" y1="7" x2="20.66" y2="17"></line>
+              <line x1="20.66" y1="7" x2="3.34" y2="17"></line>
+            </svg>
+            <span><span class="stack-hud-index">02 //</span> SELECTED PROJECTS</span>
+          </div>
+          <h2 id="projects-heading" class="hud-section-title">FEATURED WORKS</h2>
+          <p class="hud-section-subtitle">
+            Select any project row to inspect the problem statement, architecture, and design process.
           </p>
         </div>
 
         <!-- Interactive Filter Bar -->
-        <div class="filter-bar" role="tablist" aria-label="Filter Projects by Category">
+        <div class="filter-bar hud-filter-bar" role="tablist" aria-label="Filter Projects by Category">
           <button
             type="button"
             class="filter-btn is-active"
@@ -393,393 +534,367 @@
         </div>
       </div>
 
-      <!-- Bento Grid for 3 Featured Projects (Asymmetric 7 + 5 Row 1, Full 12 Row 2) -->
-      <div class="bento-grid projects-grid" id="projects-grid">
-        <!-- PROJECT 1: MatchWork (Span 7) -->
-        <article
-          class="bento-card project-card span-7"
-          data-project-id="matchwork"
-          data-categories="web"
-          tabindex="0"
-          role="button"
-          aria-label="Open case study for MatchWork — Job Matching Platform"
-        >
-          <!-- Real Project Screenshot Thumbnail -->
-          <div class="project-mockup project-screenshot-wrap">
-            <div class="screenshot-frame">
-              <div class="screenshot-bar" aria-hidden="true">
-                <div class="browser-dots"><span></span><span></span><span></span></div>
-                <span class="browser-url">github.com/Chanyut-Benja/MatchWork-Prototype</span>
-              </div>
-              <img
-                src="./assets/matchwork-preview.png"
-                alt="MatchWork Job Matching Platform Dashboard Screenshot"
-                class="project-screenshot-img"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div class="project-content">
-            <div class="project-meta-row">
-              <span class="role-badge badge-blue">Full-Stack Developer</span>
-              <a
-                href="https://github.com/Chanyut-Benja/MatchWork-Prototype"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-github-link"
-                aria-label="View MatchWork on GitHub"
-                title="github.com/Chanyut-Benja/MatchWork-Prototype"
-              >
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
-                  <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-                </svg>
-                <span>GitHub</span>
-              </a>
-            </div>
-
-            <h3 class="project-title">
-              MatchWork — Job Matching Platform <span class="project-sub">(Full-Stack)</span>
-            </h3>
-
-            <p class="project-desc">
-              A skill-tag job matching web application engineered with MVC architecture, JWT authentication, relational database modeling, and automated Unit/API testing powered by Jest.
-            </p>
-
-            <div class="project-footer">
-              <div class="project-tags">
-                <span class="mono-tag">Full-Stack</span>
-                <span class="mono-tag">REST API</span>
-                <span class="mono-tag">MySQL</span>
-              </div>
-              <span class="project-cta-hint">
-                View Case Study
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </span>
-            </div>
-          </div>
-        </article>
-
-        <!-- PROJECT 2: EasyDorm (Span 5) -->
-        <article
-          class="bento-card project-card span-5"
-          data-project-id="easydorm"
-          data-categories="uxui web"
-          tabindex="0"
-          role="button"
-          aria-label="Open case study for EasyDorm — Smart Dormitory Management System"
-        >
-          <!-- Real Project Screenshot Thumbnail -->
-          <div class="project-mockup project-screenshot-wrap mockup-easydorm-bg">
-            <div class="screenshot-frame">
-              <div class="screenshot-bar" aria-hidden="true">
-                <div class="browser-dots"><span></span><span></span><span></span></div>
-                <span class="browser-url">github.com/Chanyut-Benja/EasyDorm-Upgrade</span>
-              </div>
-              <img
-                src="./assets/easydorm-preview.png"
-                alt="EasyDorm Smart Dormitory Resident Dashboard Screenshot"
-                class="project-screenshot-img"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div class="project-content">
-            <div class="project-meta-row">
-              <span class="role-badge badge-cyan">Product Design &amp; Web</span>
-              <a
-                href="https://github.com/Chanyut-Benja/EasyDorm-Upgrade"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-github-link"
-                aria-label="View EasyDorm on GitHub"
-                title="github.com/Chanyut-Benja/EasyDorm-Upgrade"
-              >
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
-                  <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-                </svg>
-                <span>GitHub</span>
-              </a>
-            </div>
-
-            <h3 class="project-title">
-              EasyDorm — Smart Dormitory System <span class="project-sub">(Product Design &amp; Web)</span>
-            </h3>
-
-            <p class="project-desc">
-              Designed end-to-end UX/UI and developed a responsive web prototype for desktop and mobile to manage utility bill alerts, maintenance requests, and virtual keycard access.
-            </p>
-
-            <div class="project-footer">
-              <div class="project-tags">
-                <span class="mono-tag">Product Design</span>
-                <span class="mono-tag">UX/UI</span>
-                <span class="mono-tag">Responsive Web</span>
-              </div>
-              <span class="project-cta-hint">
-                View Case Study
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </span>
-            </div>
-          </div>
-        </article>
-
-        <!-- PROJECT 3: Subject N: Lab Breakout (Span 12 Horizontal Bento Showcase) -->
-        <article
-          class="bento-card project-card span-12"
-          data-project-id="subjectn"
-          data-categories="game"
-          tabindex="0"
-          role="button"
-          aria-label="Open case study for Subject N: Lab Breakout — 2D Action Rogue-lite"
-        >
-          <div class="project-mockup mockup-subjectn" aria-hidden="true">
-            <div class="sn-hud">
-              <div class="sn-hud-top">
-                <div class="sn-hp-wrap">
-                  <span class="sn-label">SUBJECT-N // HP</span>
-                  <div class="sn-hp-bar"><div class="sn-hp-fill"></div></div>
+      <!-- Glass HUD Selected Projects List -->
+      <div class="hud-glass-card selected-projects-card">
+        <div class="selected-projects-list" id="projects-grid">
+          <!-- PROJECT 01: MatchWork -->
+          <article
+            class="project-card selected-project-row"
+            data-project-id="matchwork"
+            data-categories="web"
+            tabindex="0"
+            role="button"
+            aria-label="Open case study for MatchWork — Job Matching Platform"
+          >
+            <div class="sp-row-left">
+              <span class="sp-index" aria-hidden="true">_01.</span>
+              <div class="sp-main">
+                <div class="sp-title-wrap">
+                  <h3 class="sp-title">MatchWork</h3>
+                  <span class="sp-subtitle">Job Matching Platform</span>
                 </div>
-                <span class="sn-floor">SECTOR B-03 • ROGUE-LITE</span>
-              </div>
-
-              <div class="sn-boon-row">
-                <div class="sn-boon-card is-selected">
-                  <span class="sn-boon-tier">EPIC AUGMENT</span>
-                  <span class="sn-boon-name">Overclock Dash</span>
-                  <span class="sn-boon-stat">+35% Crit • Chain Bolt</span>
+                <div class="sp-stack" aria-label="Technologies used">
+                  <span>Node.js</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Express.js</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>MySQL</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>REST API</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Jest</span>
                 </div>
-                <div class="sn-skill-tree">
-                  <div class="sn-tree-title">SKILL TREE NODES</div>
-                  <svg viewBox="0 0 150 64" class="sn-tree-svg">
-                    <line x1="22" y1="32" x2="72" y2="16" stroke="#06B6D4" stroke-width="2" />
-                    <line x1="22" y1="32" x2="72" y2="48" stroke="#2563EB" stroke-width="2" />
-                    <line x1="72" y1="16" x2="126" y2="32" stroke="#06B6D4" stroke-width="2" stroke-dasharray="4 3" />
-                    <line x1="72" y1="48" x2="126" y2="32" stroke="#334155" stroke-width="2" />
-                    <circle cx="22" cy="32" r="8" fill="#06B6D4" />
-                    <circle cx="72" cy="16" r="7" fill="#2563EB" stroke="#06B6D4" stroke-width="2" />
-                    <circle cx="72" cy="48" r="7" fill="#2563EB" />
-                    <circle cx="126" cy="32" r="7" fill="#0F172A" stroke="#06B6D4" stroke-width="2" />
+              </div>
+            </div>
+
+            <div class="sp-row-right">
+              <div class="sp-preview-thumb" aria-hidden="true">
+                <img
+                  src="./assets/matchwork-preview.png"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="sp-actions">
+                <span class="role-badge badge-blue">Full-Stack Developer</span>
+                <a
+                  href="https://github.com/Chanyut-Benja/MatchWork-Prototype"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-github-link"
+                  aria-label="View MatchWork on GitHub"
+                  title="github.com/Chanyut-Benja/MatchWork-Prototype"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
                   </svg>
+                  <span>GitHub</span>
+                </a>
+                <span class="sp-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7"></path>
+                    <path d="M7 7h10v10"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 02: EasyDorm -->
+          <article
+            class="project-card selected-project-row"
+            data-project-id="easydorm"
+            data-categories="uxui web"
+            tabindex="0"
+            role="button"
+            aria-label="Open case study for EasyDorm — Smart Dormitory Management System"
+          >
+            <div class="sp-row-left">
+              <span class="sp-index" aria-hidden="true">_02.</span>
+              <div class="sp-main">
+                <div class="sp-title-wrap">
+                  <h3 class="sp-title">EasyDorm</h3>
+                  <span class="sp-subtitle">Smart Dormitory System</span>
+                </div>
+                <div class="sp-stack" aria-label="Technologies used">
+                  <span>Figma</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Product Design</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>UX/UI</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Responsive Web</span>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="project-content">
-            <div class="project-meta-row">
-              <span class="role-badge badge-hybrid">Game Development • Team of 6</span>
-              <a
-                href="https://github.com/Chanyut-Benja/lab-breakout-roguelite"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-github-link"
-                aria-label="View Subject N: Lab Breakout on GitHub"
-                title="github.com/Chanyut-Benja/lab-breakout-roguelite"
-              >
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
-                  <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-                </svg>
-                <span>GitHub</span>
-              </a>
-            </div>
-
-            <h3 class="project-title">
-              Subject N: Lab Breakout — 2D Action Rogue-lite <span class="project-sub">(Game Development)</span>
-            </h3>
-
-            <p class="project-desc">
-              A top-down 2D action rogue-lite developed in a 6-person team, featuring multi-floor stage progression, Hades-inspired skill upgrades, and a persistent skill point tree.
-            </p>
-
-            <div class="project-footer">
-              <div class="project-tags">
-                <span class="mono-tag">Unity</span>
-                <span class="mono-tag">C#</span>
-                <span class="mono-tag">Game Systems</span>
+            <div class="sp-row-right">
+              <div class="sp-preview-thumb" aria-hidden="true">
+                <img
+                  src="./assets/easydorm-preview.png"
+                  alt=""
+                  loading="lazy"
+                />
               </div>
-              <span class="project-cta-hint">
-                View Case Study
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </span>
+              <div class="sp-actions">
+                <span class="role-badge badge-cyan">Product Design &amp; Web</span>
+                <a
+                  href="https://github.com/Chanyut-Benja/EasyDorm-Upgrade"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-github-link"
+                  aria-label="View EasyDorm on GitHub"
+                  title="github.com/Chanyut-Benja/EasyDorm-Upgrade"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+                <span class="sp-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7"></path>
+                    <path d="M7 7h10v10"></path>
+                  </svg>
+                </span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+
+          <!-- PROJECT 03: Subject N: Lab Breakout -->
+          <article
+            class="project-card selected-project-row"
+            data-project-id="subjectn"
+            data-categories="game"
+            tabindex="0"
+            role="button"
+            aria-label="Open case study for Subject N: Lab Breakout — 2D Action Rogue-lite"
+          >
+            <div class="sp-row-left">
+              <span class="sp-index" aria-hidden="true">_03.</span>
+              <div class="sp-main">
+                <div class="sp-title-wrap">
+                  <h3 class="sp-title">Subject N: Lab Breakout</h3>
+                  <span class="sp-subtitle">2D Action Rogue-lite</span>
+                </div>
+                <div class="sp-stack" aria-label="Technologies used">
+                  <span>Unity</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>C#</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Game Systems</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Adobe Illustrator</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sp-row-right">
+              <div class="sp-preview-thumb sp-preview-hud" aria-hidden="true">
+                <div class="sp-mini-hud">
+                  <span class="sp-mini-hud-tag">SECTOR B-03</span>
+                  <div class="sp-mini-hp"><div class="sp-mini-hp-fill"></div></div>
+                  <span class="sp-mini-hud-boon">Overclock Dash</span>
+                </div>
+              </div>
+              <div class="sp-actions">
+                <span class="role-badge badge-hybrid">Game Dev • Team of 6</span>
+                <a
+                  href="https://github.com/Chanyut-Benja/lab-breakout-roguelite"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-github-link"
+                  aria-label="View Subject N: Lab Breakout on GitHub"
+                  title="github.com/Chanyut-Benja/lab-breakout-roguelite"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+                <span class="sp-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7"></path>
+                    <path d="M7 7h10v10"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- =========================================================
-         BOTTOM BENTO GRID: EDUCATION (LEFT) + CONNECT (RIGHT)
+         SECTION 03 & 04: EDUCATION & CONNECT (index.html data in hero.html HUD style)
          ========================================================= -->
-    <section class="bento-grid bento-bottom" aria-label="Education and Contact Information">
-      <!-- 4. EDUCATION CARD (Bottom-Left) -->
-      <article id="education" class="bento-card education-card span-7">
-        <div class="card-header">
-          <div>
-            <span class="section-eyebrow">ACADEMIC BACKGROUND</span>
-            <h2 class="card-title">Education</h2>
-          </div>
-          <span class="mono-tag year-pill">Year 3 Undergraduate</span>
-        </div>
-
-        <div class="edu-body">
-          <div class="edu-icon-box" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-              <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"></path>
-            </svg>
-          </div>
-
-          <div class="edu-details">
-            <h3 class="edu-institute">
-              King Mongkut's Institute of Technology Ladkrabang (KMITL)
-            </h3>
-            <p class="edu-en-sub">Faculty of Information Technology • Bangkok, Thailand</p>
-            <p class="edu-degree">
-              B.Sc. in Information Technology (Multimedia Track) — 3rd Year
-            </p>
-          </div>
-        </div>
-
-        <div class="edu-interests">
-          <span class="edu-interests-label">Core Focus Areas</span>
-          <div class="interest-chips">
-            <div class="interest-chip">
-              <span class="interest-dot dot-cyan" aria-hidden="true"></span>
-              <span>Human-Computer Interaction (HCI)</span>
+    <section class="hud-section hud-bottom-section" aria-label="Education and Contact Information">
+      <div class="hud-bottom-grid">
+        <!-- 03. EDUCATION CARD -->
+        <article id="education" class="hud-glass-card education-card">
+          <div class="card-header">
+            <div>
+              <div class="stack-hud-tag hud-tag-compact">
+                <span class="stack-hud-index">03 //</span>
+                <span>ACADEMIC BACKGROUND</span>
+              </div>
+              <h2 class="hud-card-title">EDUCATION</h2>
             </div>
-            <div class="interest-chip">
-              <span class="interest-dot dot-blue" aria-hidden="true"></span>
-              <span>Full-Stack Web Engineering</span>
-            </div>
-            <div class="interest-chip">
-              <span class="interest-dot dot-hybrid" aria-hidden="true"></span>
-              <span>Interactive Media</span>
-            </div>
+            <span class="mono-tag year-pill">Year 3 Undergraduate</span>
           </div>
-        </div>
-      </article>
 
-      <!-- 5. CONNECT & SOCIALS CARD (Bottom-Right) -->
-      <article id="contact" class="bento-card connect-card span-5">
-        <div class="card-header">
-          <div>
-            <span class="section-eyebrow">CONNECT &amp; SOCIALS</span>
-            <h2 class="card-title">Get in Touch</h2>
-          </div>
-          <span class="card-badge-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-            </svg>
-          </span>
-        </div>
-
-        <div class="contact-list">
-          <!-- GitHub -->
-          <a
-            href="https://github.com/Chanyut-Benja"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="contact-row"
-          >
-            <span class="contact-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+          <div class="edu-body">
+            <div class="edu-icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"></path>
               </svg>
-            </span>
-            <span class="contact-info">
-              <span class="contact-label">GitHub</span>
-              <span class="contact-value">github.com/Chanyut-Benja</span>
-            </span>
-            <span class="contact-arrow" aria-hidden="true">↗</span>
-          </a>
+            </div>
 
-          <!-- Email -->
-          <div class="contact-row contact-row-split">
-            <a href="mailto:chanyut.benjapala@gmail.com" class="contact-row-main">
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                </svg>
-              </span>
-              <span class="contact-info">
-                <span class="contact-label">Email</span>
-                <span class="contact-value">chanyut.benjapala@gmail.com</span>
-              </span>
-            </a>
-            <button
-              type="button"
-              class="mini-copy-btn"
-              data-copy="chanyut.benjapala@gmail.com"
-              aria-label="Copy email chanyut.benjapala@gmail.com"
-              title="Copy email"
-            >
-              Copy
-            </button>
+            <div class="edu-details">
+              <h3 class="edu-institute">
+                King Mongkut's Institute of Technology Ladkrabang (KMITL)
+              </h3>
+              <p class="edu-en-sub">Faculty of Information Technology • Bangkok, Thailand</p>
+              <p class="edu-degree">
+                B.Sc. in Information Technology (Multimedia Track) — 3rd Year
+              </p>
+            </div>
           </div>
 
-          <!-- Phone -->
-          <div class="contact-row contact-row-split">
-            <a href="tel:0959605131" class="contact-row-main">
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg>
-              </span>
-              <span class="contact-info">
-                <span class="contact-label">Phone</span>
-                <span class="contact-value">095-960-5131</span>
-              </span>
-            </a>
-            <button
-              type="button"
-              class="mini-copy-btn"
-              data-copy="095-960-5131"
-              aria-label="Copy phone number 095-960-5131"
-              title="Copy phone number"
-            >
-              Copy
-            </button>
+          <div class="edu-interests">
+            <span class="edu-interests-label">Core Focus Areas</span>
+            <div class="interest-chips">
+              <div class="interest-chip">
+                <span class="interest-dot dot-cyan" aria-hidden="true"></span>
+                <span>Human-Computer Interaction (HCI)</span>
+              </div>
+              <div class="interest-chip">
+                <span class="interest-dot dot-blue" aria-hidden="true"></span>
+                <span>Full-Stack Web Engineering</span>
+              </div>
+              <div class="interest-chip">
+                <span class="interest-dot dot-hybrid" aria-hidden="true"></span>
+                <span>Interactive Media</span>
+              </div>
+            </div>
           </div>
+        </article>
 
-          <!-- Location -->
-          <div class="contact-row contact-row-static">
-            <span class="contact-icon" aria-hidden="true">
+        <!-- 04. CONNECT & SOCIALS CARD -->
+        <article id="contact" class="hud-glass-card connect-card">
+          <div class="card-header">
+            <div>
+              <div class="stack-hud-tag hud-tag-compact">
+                <span class="stack-hud-index">04 //</span>
+                <span>CONNECT &amp; SOCIALS</span>
+              </div>
+              <h2 class="hud-card-title">GET IN TOUCH</h2>
+            </div>
+            <span class="card-badge-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
               </svg>
             </span>
-            <span class="contact-info">
-              <span class="contact-label">Location</span>
-              <span class="contact-value">Bangkok, Thailand</span>
-            </span>
-            <span class="mono-tag tz-pill">UTC+7</span>
           </div>
-        </div>
-      </article>
+
+          <div class="contact-list">
+            <!-- GitHub -->
+            <a
+              href="https://github.com/Chanyut-Benja"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-row"
+            >
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                </svg>
+              </span>
+              <span class="contact-info">
+                <span class="contact-label">GitHub</span>
+                <span class="contact-value">github.com/Chanyut-Benja</span>
+              </span>
+              <span class="contact-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <!-- Email -->
+            <div class="contact-row contact-row-split">
+              <a href="mailto:chanyut.benjapala@gmail.com" class="contact-row-main">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                </span>
+                <span class="contact-info">
+                  <span class="contact-label">Email</span>
+                  <span class="contact-value">chanyut.benjapala@gmail.com</span>
+                </span>
+              </a>
+              <button
+                type="button"
+                class="mini-copy-btn"
+                data-copy="chanyut.benjapala@gmail.com"
+                aria-label="Copy email chanyut.benjapala@gmail.com"
+                title="Copy email"
+              >
+                Copy
+              </button>
+            </div>
+
+            <!-- Phone -->
+            <div class="contact-row contact-row-split">
+              <a href="tel:0959605131" class="contact-row-main">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </span>
+                <span class="contact-info">
+                  <span class="contact-label">Phone</span>
+                  <span class="contact-value">095-960-5131</span>
+                </span>
+              </a>
+              <button
+                type="button"
+                class="mini-copy-btn"
+                data-copy="095-960-5131"
+                aria-label="Copy phone number 095-960-5131"
+                title="Copy phone number"
+              >
+                Copy
+              </button>
+            </div>
+
+            <!-- Location -->
+            <div class="contact-row contact-row-static">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </span>
+              <span class="contact-info">
+                <span class="contact-label">Location</span>
+                <span class="contact-value">Bangkok, Thailand</span>
+              </span>
+              <span class="mono-tag tz-pill">UTC+7</span>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <!-- Minimalist Footer -->
-    <footer class="site-footer">
+    <footer class="hud-section site-footer">
       <div class="footer-left">
         <span class="footer-copy">© 2026 Chanyut Benjapalakorn</span>
         <span class="footer-sep">•</span>
-        <span class="footer-note">Designed &amp; Engineered with Bento Architecture</span>
+        <span class="footer-note">Designed &amp; Engineered with HUD Architecture</span>
       </div>
       <div class="footer-right">
-        <a href="#top" class="back-to-top">Back to top ↑</a>
+        <a href="#about" class="back-to-top">Back to top ↑</a>
       </div>
     </footer>
   </main>

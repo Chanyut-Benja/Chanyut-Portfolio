@@ -221,7 +221,7 @@
     }
 
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', normalized === 'dark' ? '#0B0F19' : '#F8FAFC');
+      metaThemeColor.setAttribute('content', normalized === 'dark' ? '#070B14' : '#F8FAFC');
     }
   }
 
@@ -621,9 +621,9 @@
   });
 
   /* ========================================================================
-     6. BENTO CARD SUBTLE CURSOR SPOTLIGHT TRACKING
+     6. BENTO / HUD CARD SUBTLE CURSOR SPOTLIGHT TRACKING
      ======================================================================== */
-  const allBentoCards = document.querySelectorAll('.bento-card');
+  const allBentoCards = document.querySelectorAll('.bento-card, .hud-glass-card');
   allBentoCards.forEach(function (card) {
     card.addEventListener('mousemove', function (event) {
       const rect = card.getBoundingClientRect();
@@ -633,4 +633,81 @@
       card.style.setProperty('--mouse-y', y + 'px');
     });
   });
+
+  /* ========================================================================
+     7. HERO & HUD EFFECTS (MOUSE GLOW, SCROLL INDICATOR, STACK REVEAL)
+     ======================================================================== */
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Smooth Mouse-Following Ambient Glow
+  if (!prefersReducedMotion) {
+    let targetX = window.innerWidth * 0.5;
+    let targetY = window.innerHeight * 0.4;
+    let currentX = targetX;
+    let currentY = targetY;
+
+    window.addEventListener(
+      'pointermove',
+      function (e) {
+        targetX = e.clientX;
+        targetY = e.clientY;
+      },
+      { passive: true }
+    );
+
+    function animateGlow() {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      htmlEl.style.setProperty('--mx', currentX.toFixed(1) + 'px');
+      htmlEl.style.setProperty('--my', currentY.toFixed(1) + 'px');
+      requestAnimationFrame(animateGlow);
+    }
+
+    requestAnimationFrame(animateGlow);
+  }
+
+  // Right-Side Scroll Indicator Update
+  const scrollFill = document.getElementById('scroll-fill');
+  if (scrollFill) {
+    const updateScrollIndicator = function () {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
+      const fillPercent = 24 + progress * 76;
+      scrollFill.style.height = fillPercent + '%';
+    };
+    window.addEventListener('scroll', updateScrollIndicator, { passive: true });
+    updateScrollIndicator();
+  }
+
+  // Staggered Scroll-Reveal for My Stack Rows & Tech Items
+  const stackRows = document.querySelectorAll('.stack-row');
+  stackRows.forEach(function (row) {
+    const items = row.querySelectorAll('.stack-item');
+    items.forEach(function (item, idx) {
+      item.style.transitionDelay = idx * 45 + 'ms';
+    });
+  });
+
+  if (stackRows.length > 0) {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      stackRows.forEach(function (row) {
+        row.classList.add('is-visible');
+      });
+    } else {
+      const stackObserver = new IntersectionObserver(
+        function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.16, rootMargin: '0px 0px -30px 0px' }
+      );
+      stackRows.forEach(function (row) {
+        stackObserver.observe(row);
+      });
+    }
+  }
 })();
