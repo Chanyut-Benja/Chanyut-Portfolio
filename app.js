@@ -146,8 +146,25 @@
       year: '2024',
       roleBadge: 'Game Development • Team of 6',
       badgeClass: 'badge-hybrid',
-      imageSrc: null,
-      imageAlt: 'Subject N: Lab Breakout Gameplay Screenshot',
+      imageSrc: './assets/subjectn-menu.jpg',
+      imageAlt: 'Subject N: Lab Breakout — Title Screen & Main Menu',
+      images: [
+        {
+          src: './assets/subjectn-menu.jpg',
+          alt: 'Subject N: Lab Breakout — Title Screen & Main Menu (Play, Skill Tree, Settings, How to Play)',
+          caption: 'Main Menu & Persistent Skill Tree Entry'
+        },
+        {
+          src: './assets/subjectn-boss-brute.jpg',
+          alt: 'Subject N: Lab Breakout — Floor 1 Boss Fight against The Brute with combat HUD',
+          caption: 'Floor 1 Boss Encounter: The Brute & Combat HUD'
+        },
+        {
+          src: './assets/subjectn-boss-stormcaller.jpg',
+          alt: 'Subject N: Lab Breakout — Floor 2 Boss Fight against The Stormcaller with Weapons, Tech Passives, and Research Boons',
+          caption: 'Floor 2 Boss Encounter: The Stormcaller & Modular Augment Loadout'
+        }
+      ],
       bannerKicker: '2D TOP-DOWN ACTION ROGUE-LITE • UNITY & C# SYSTEMS',
       bannerSummary:
         'A top-down 2D sci-fi action rogue-lite co-developed in a 6-person team, featuring Hades-inspired modular skill upgrades, multi-floor lab stages, and a persistent skill point tree.',
@@ -279,9 +296,11 @@
 
       if (shouldShow) {
         card.classList.remove('is-hidden');
+        card.classList.add('is-visible');
+        card.style.transitionDelay = '0ms';
         // Force reflow for crisp staggered entrance animation
         void card.offsetWidth;
-        card.style.animationDelay = visibleIndex * 55 + 'ms';
+        card.style.animationDelay = visibleIndex * 60 + 'ms';
         card.classList.add('is-filtering-in');
         visibleIndex += 1;
       } else {
@@ -307,6 +326,38 @@
       const targetFilter = btn.dataset.filter || 'all';
       if (targetFilter !== currentFilter) {
         filterProjects(targetFilter);
+      }
+    });
+  });
+
+  /* Interactive Hero Focus Cards -> Smooth Scroll to #projects & Auto-Filter */
+  const focusCards = Array.from(document.querySelectorAll('.focus-card[data-filter-target]'));
+  const projectsSection = document.getElementById('projects');
+
+  function activateFocusCard(card) {
+    const targetFilter = card.dataset.filterTarget;
+    if (!targetFilter) return;
+
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    const matchingFilterBtn = document.querySelector('.filter-btn[data-filter="' + targetFilter + '"]');
+    if (matchingFilterBtn) {
+      matchingFilterBtn.click();
+    } else {
+      filterProjects(targetFilter);
+    }
+  }
+
+  focusCards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      activateFocusCard(card);
+    });
+    card.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activateFocusCard(card);
       }
     });
   });
@@ -397,7 +448,18 @@
     }
 
     if (pdShowcase) {
-      if (data.imageSrc) {
+      if (data.images && data.images.length > 0) {
+        pdShowcase.innerHTML = data.images
+          .map(function (img) {
+            return (
+              '<figure class="pd-showcase-frame">' +
+              '<img src="' + escapeHtml(img.src) + '" alt="' + escapeHtml(img.alt || data.title) + '" class="pd-showcase-img" loading="lazy" />' +
+              (img.caption ? '<figcaption class="pd-showcase-caption">' + escapeHtml(img.caption) + '</figcaption>' : '') +
+              '</figure>'
+            );
+          })
+          .join('');
+      } else if (data.imageSrc) {
         pdShowcase.innerHTML =
           '<div class="pd-showcase-frame">' +
           '<img src="' + escapeHtml(data.imageSrc) + '" alt="' + escapeHtml(data.imageAlt || data.title) + '" class="pd-showcase-img" loading="lazy" />' +
@@ -694,16 +756,47 @@
   });
 
   /* ========================================================================
-     7. HERO & HUD EFFECTS (MOUSE GLOW, SCROLL INDICATOR, STACK REVEAL)
+     7. HERO, SCROLL CHOREOGRAPHY & INTERACTIVE MICRO-INTERACTIONS
      ======================================================================== */
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-  // Smooth Mouse-Following Ambient Glow
-  if (!prefersReducedMotion) {
+  // Ambient Mouse Glow, Scroll Indicator & Scroll-Velocity Asterisk Loop (60fps)
+  const scrollFill = document.getElementById('scroll-fill');
+  const stackAsterisks = Array.from(document.querySelectorAll('.stack-asterisk'));
+
+  function getTargetScrollPercent() {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
+    return 24 + progress * 76;
+  }
+
+  if (prefersReducedMotion) {
+    if (scrollFill) {
+      const syncScroll = function () {
+        scrollFill.style.height = getTargetScrollPercent().toFixed(2) + '%';
+      };
+      window.addEventListener('scroll', syncScroll, { passive: true });
+      syncScroll();
+    }
+  } else {
     let targetX = window.innerWidth * 0.5;
     let targetY = window.innerHeight * 0.4;
     let currentX = targetX;
     let currentY = targetY;
+    let currentX2 = targetX;
+    let currentY2 = targetY;
+
+    let targetFill = getTargetScrollPercent();
+    let currentFill = targetFill;
+
+    let lastScrollY = window.scrollY;
+    let asteriskAngle = 0;
+    let asteriskVelocity = 0;
+
+    stackAsterisks.forEach(function (el) {
+      el.classList.add('is-js-driven');
+    });
 
     window.addEventListener(
       'pointermove',
@@ -714,58 +807,194 @@
       { passive: true }
     );
 
-    function animateGlow() {
+    window.addEventListener(
+      'scroll',
+      function () {
+        targetFill = getTargetScrollPercent();
+        const nowY = window.scrollY;
+        const delta = nowY - lastScrollY;
+        lastScrollY = nowY;
+        asteriskVelocity = Math.max(-18, Math.min(18, asteriskVelocity + delta * 0.22));
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      'resize',
+      function () {
+        targetFill = getTargetScrollPercent();
+      },
+      { passive: true }
+    );
+
+    function tickAnimations() {
+      // Layered lerp for Cobalt & Cyan ambient glows
       currentX += (targetX - currentX) * 0.08;
       currentY += (targetY - currentY) * 0.08;
+      currentX2 += (targetX - currentX2) * 0.045;
+      currentY2 += (targetY - currentY2) * 0.045;
+
       htmlEl.style.setProperty('--mx', currentX.toFixed(1) + 'px');
       htmlEl.style.setProperty('--my', currentY.toFixed(1) + 'px');
-      requestAnimationFrame(animateGlow);
+      htmlEl.style.setProperty('--mx2', currentX2.toFixed(1) + 'px');
+      htmlEl.style.setProperty('--my2', currentY2.toFixed(1) + 'px');
+
+      // Smooth scroll progress bar
+      if (scrollFill) {
+        currentFill += (targetFill - currentFill) * 0.16;
+        scrollFill.style.height = currentFill.toFixed(2) + '%';
+      }
+
+      // Continuous + scroll-velocity asterisk rotation
+      if (stackAsterisks.length > 0) {
+        asteriskAngle = (asteriskAngle + 0.42 + asteriskVelocity) % 360;
+        asteriskVelocity *= 0.92;
+        if (Math.abs(asteriskVelocity) < 0.01) asteriskVelocity = 0;
+        const rot = 'rotate(' + asteriskAngle.toFixed(2) + 'deg)';
+        stackAsterisks.forEach(function (el) {
+          el.style.transform = rot;
+        });
+      }
+
+      requestAnimationFrame(tickAnimations);
     }
 
-    requestAnimationFrame(animateGlow);
+    requestAnimationFrame(tickAnimations);
   }
 
-  // Right-Side Scroll Indicator Update
-  const scrollFill = document.getElementById('scroll-fill');
-  if (scrollFill) {
-    const updateScrollIndicator = function () {
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
-      const fillPercent = 24 + progress * 76;
-      scrollFill.style.height = fillPercent + '%';
-    };
-    window.addEventListener('scroll', updateScrollIndicator, { passive: true });
-    updateScrollIndicator();
-  }
+  // Hero Focus Cards 3D Perspective Tilt
+  if (!prefersReducedMotion && isFinePointer) {
+    document.querySelectorAll('.focus-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        const rect = card.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width - 0.5;
+        const ny = (e.clientY - rect.top) / rect.height - 0.5;
+        const rx = (-ny * 8).toFixed(2);
+        const ry = (nx * 10).toFixed(2);
+        card.style.transform =
+          'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateX(-8px)';
+      });
 
-  // Staggered Scroll-Reveal for My Stack Rows & Tech Items
-  const stackRows = document.querySelectorAll('.stack-row');
-  stackRows.forEach(function (row) {
-    const items = row.querySelectorAll('.stack-item');
-    items.forEach(function (item, idx) {
-      item.style.transitionDelay = idx * 45 + 'ms';
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
     });
+
+    // Selected Project Row Floating Thumbnail Vertical Parallax
+    document.querySelectorAll('.selected-project-row').forEach(function (row) {
+      row.addEventListener('mousemove', function (e) {
+        const rect = row.getBoundingClientRect();
+        const offsetY = ((e.clientY - rect.top) / rect.height - 0.5) * 18;
+        row.style.setProperty('--thumb-y', offsetY.toFixed(1) + 'px');
+      });
+
+      row.addEventListener('mouseleave', function () {
+        row.style.setProperty('--thumb-y', '0px');
+      });
+    });
+
+    // Magnetic Effect on Primary & Secondary HUD Buttons
+    document.querySelectorAll('.hud-btn-primary, .hud-btn-secondary').forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        const rect = btn.getBoundingClientRect();
+        const dx = (e.clientX - (rect.left + rect.width * 0.5)) * 0.22;
+        const dy = (e.clientY - (rect.top + rect.height * 0.5)) * 0.22;
+        const tx = Math.max(-8, Math.min(8, dx)).toFixed(1);
+        const ty = Math.max(-6, Math.min(6, dy)).toFixed(1);
+        btn.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) translateY(-2px)';
+      });
+
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  // Stack Item Icon-Color Glow Extraction
+  function toRgba(colorStr, alpha) {
+    const match = colorStr.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (!match) return '';
+    return 'rgba(' + match[1] + ', ' + match[2] + ', ' + match[3] + ', ' + alpha + ')';
+  }
+
+  document.querySelectorAll('.stack-item').forEach(function (item) {
+    const icon = item.querySelector('.stack-icon');
+    if (!icon || icon.classList.contains('stack-icon-neutral')) return;
+    const computedColor = window.getComputedStyle(icon).color;
+    const softGlow = toRgba(computedColor, 0.34);
+    if (computedColor && softGlow) {
+      item.style.setProperty('--item-glow', computedColor);
+      item.style.setProperty('--item-glow-soft', softGlow);
+    }
   });
 
-  if (stackRows.length > 0) {
+  // Bidirectional Scroll-Reveal Choreography (animates on scroll down & scroll up)
+  const revealTargets = Array.from(
+    document.querySelectorAll(
+      '.stack-hud-tag:not(.hud-tag-compact), .hud-section-title, .hud-section-subtitle, .stack-row, .selected-project-row, .edu-hud-row, .contact-row'
+    )
+  );
+
+  function setStackItemDelays(row, staggered) {
+    if (!row.classList.contains('stack-row')) return;
+    row.querySelectorAll('.stack-item').forEach(function (item, idx) {
+      item.style.transitionDelay = staggered ? idx * 45 + 'ms' : '0ms';
+    });
+  }
+
+  function revealRowElement(row, delayMs) {
+    if (row._revealTimer) clearTimeout(row._revealTimer);
+    row.classList.remove('is-scroll-above');
+    setStackItemDelays(row, true);
+    row.style.transitionDelay = delayMs + 'ms';
+    row.classList.add('is-visible');
+
+    // Clear transitionDelay after reveal so hover micro-interactions respond instantly
+    row._revealTimer = setTimeout(function () {
+      row.style.transitionDelay = '0ms';
+      setStackItemDelays(row, false);
+    }, 700 + delayMs);
+  }
+
+  function hideRowElement(row, isAboveViewport) {
+    if (row._revealTimer) {
+      clearTimeout(row._revealTimer);
+      row._revealTimer = null;
+    }
+    row.style.transitionDelay = '0ms';
+    setStackItemDelays(row, false);
+    row.classList.remove('is-visible');
+    if (isAboveViewport) {
+      row.classList.add('is-scroll-above');
+    } else {
+      row.classList.remove('is-scroll-above');
+    }
+  }
+
+  if (revealTargets.length > 0) {
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      stackRows.forEach(function (row) {
+      revealTargets.forEach(function (row) {
         row.classList.add('is-visible');
+        setStackItemDelays(row, false);
       });
     } else {
-      const stackObserver = new IntersectionObserver(
-        function (entries, obs) {
+      const rowObserver = new IntersectionObserver(
+        function (entries) {
+          let batchIdx = 0;
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              obs.unobserve(entry.target);
+              revealRowElement(entry.target, batchIdx * 80);
+              batchIdx += 1;
+            } else {
+              hideRowElement(entry.target, entry.boundingClientRect.top < 0);
             }
           });
         },
-        { threshold: 0.16, rootMargin: '0px 0px -30px 0px' }
+        { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
       );
-      stackRows.forEach(function (row) {
-        stackObserver.observe(row);
+
+      revealTargets.forEach(function (row) {
+        rowObserver.observe(row);
       });
     }
   }

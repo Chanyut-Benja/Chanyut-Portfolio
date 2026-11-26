@@ -6,7 +6,7 @@
   <title>Chanyut Benjapalakorn — Product Designer &amp; Full-Stack Developer</title>
   <meta
     name="description"
-    content="Personal portfolio of Chanyut Benjapalakorn (Yut), a 3rd-year Information Technology (Multimedia Track) student at KMITL seeking UX/UI Product Design and Full-Stack / Backend Developer internships."
+    content="Personal portfolio of Chanyut Benjapalakorn, a 3rd-year Information Technology (Multimedia Track) student at KMITL seeking UX/UI Product Design and Full-Stack / Backend Developer internships."
   />
   <meta name="author" content="Chanyut Benjapalakorn" />
   <meta name="robots" content="index, follow" />
@@ -91,8 +91,8 @@
 
       <div class="nav-links" id="nav-links">
         <a href="#about" class="nav-link">About</a>
-        <a href="#skills" class="nav-link">Skills</a>
         <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
         <a href="#education" class="nav-link">Education</a>
         <a href="#contact" class="nav-link">Contact</a>
       </div>
@@ -149,16 +149,8 @@
          ========================================================= -->
     <section id="about" class="hero-section" aria-label="Introduction and Core Focus">
       <div class="hero-split">
-        <!-- Left Column (64%): Status, 3-Line Headline, Bio, CTAs -->
+        <!-- Left Column (64%): 3-Line Headline, Bio, CTAs -->
         <div class="hero-left">
-          <div class="status-capsule reveal reveal-d1" role="status">
-            <span class="status-dot-wrap" aria-hidden="true">
-              <span class="status-dot-ping"></span>
-              <span class="status-dot-core"></span>
-            </span>
-            <span class="status-capsule-text">AVAILABLE FOR 2027 INTERNSHIP</span>
-          </div>
-
           <h1 class="hero-headline reveal reveal-d2">
             <span class="headline-line line-white">CRAFTING DIGITAL</span>
             <span class="headline-line line-gradient">EXPERIENCES &amp;</span>
@@ -166,7 +158,7 @@
           </h1>
 
           <p class="hero-hud-bio reveal reveal-d3">
-            Hi, I'm <strong>Chanyut Benjapalakorn (Yut)</strong> — a 3rd-year Information Technology (Multimedia Track) student at KMITL, blending user-centered UI/UX design with Full-Stack Web development and interactive media.
+            Hi, I'm <strong>Chanyut Benjapalakorn</strong> — a 3rd-year Information Technology (Multimedia Track) student at KMITL, blending user-centered UI/UX design with Full-Stack Web development and interactive media.
           </p>
 
           <div class="hero-cta-group reveal reveal-d4">
@@ -191,32 +183,59 @@
 
         <!-- Right Column (36%, Bottom-Aligned): 3 Interactive Focus Cards -->
         <div class="hero-right reveal reveal-d5" aria-label="Core Focus Areas">
-          <article class="focus-card">
+          <article
+            class="focus-card"
+            data-filter-target="uxui"
+            role="button"
+            tabindex="0"
+            aria-label="View UI/UX &amp; Product Design projects"
+          >
             <div class="focus-card-header">
               <h2 class="focus-card-kicker">
                 <span class="index">01 /</span> PRODUCT DESIGN
               </h2>
-              <span class="focus-card-arrow" aria-hidden="true">←</span>
+              <div class="focus-card-cta" aria-hidden="true">
+                <span class="focus-card-badge">View Works ↘</span>
+                <span class="focus-card-arrow">↘</span>
+              </div>
             </div>
             <p class="focus-card-desc">UI/UX, Prototyping &amp; User-Centered Systems</p>
           </article>
 
-          <article class="focus-card">
+          <article
+            class="focus-card"
+            data-filter-target="web"
+            role="button"
+            tabindex="0"
+            aria-label="View Full-Stack Web &amp; Backend projects"
+          >
             <div class="focus-card-header">
               <h2 class="focus-card-kicker">
                 <span class="index">02 /</span> FULL-STACK DEV
               </h2>
-              <span class="focus-card-arrow" aria-hidden="true">←</span>
+              <div class="focus-card-cta" aria-hidden="true">
+                <span class="focus-card-badge">View Works ↘</span>
+                <span class="focus-card-arrow">↘</span>
+              </div>
             </div>
             <p class="focus-card-desc">Node.js, Express, MySQL &amp; RESTful APIs</p>
           </article>
 
-          <article class="focus-card">
+          <article
+            class="focus-card"
+            data-filter-target="game"
+            role="button"
+            tabindex="0"
+            aria-label="View Game &amp; 3D Media projects"
+          >
             <div class="focus-card-header">
               <h2 class="focus-card-kicker">
                 <span class="index">03 /</span> GAME &amp; 3D MEDIA
               </h2>
-              <span class="focus-card-arrow" aria-hidden="true">←</span>
+              <div class="focus-card-cta" aria-hidden="true">
+                <span class="focus-card-badge">View Works ↘</span>
+                <span class="focus-card-arrow">↘</span>
+              </div>
             </div>
             <p class="focus-card-desc">Unity (C#), Autodesk Maya &amp; Interactive 3D</p>
           </article>
@@ -225,12 +244,268 @@
 
       <!-- Bottom Scroll Cue -->
       <div class="bottom-scroll-cue">
-        <a href="#skills" class="scroll-cue-text">[ SCROLL TO EXPLORE ]</a>
+        <a href="#projects" class="scroll-cue-text">[ SCROLL TO EXPLORE ]</a>
       </div>
     </section>
 
     <!-- =========================================================
-         SECTION 01: MY STACK (from hero.html)
+         SECTION 01: FEATURED WORKS (index.html data in hero.html HUD style)
+         ========================================================= -->
+    <section id="projects" class="hud-section projects-section" aria-labelledby="projects-heading">
+      <div class="section-bar">
+        <div class="section-bar-text">
+          <div class="stack-hud-tag">
+            <svg class="stack-asterisk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <line x1="12" y1="2" x2="12" y2="22"></line>
+              <line x1="3.34" y1="7" x2="20.66" y2="17"></line>
+              <line x1="20.66" y1="7" x2="3.34" y2="17"></line>
+            </svg>
+            <span><span class="stack-hud-index">01 //</span> SELECTED PROJECTS</span>
+          </div>
+          <h2 id="projects-heading" class="hud-section-title">FEATURED WORKS</h2>
+          <p class="hud-section-subtitle">
+            Select any project row to inspect the problem statement, architecture, and design process.
+          </p>
+        </div>
+
+        <!-- Interactive Filter Bar -->
+        <div class="filter-bar hud-filter-bar" role="tablist" aria-label="Filter Projects by Category">
+          <button
+            type="button"
+            class="filter-btn is-active"
+            role="tab"
+            aria-selected="true"
+            data-filter="all"
+          >
+            <span>All</span>
+            <span class="filter-count">3</span>
+          </button>
+          <button
+            type="button"
+            class="filter-btn"
+            role="tab"
+            aria-selected="false"
+            data-filter="web"
+          >
+            <span>Web &amp; Backend</span>
+            <span class="filter-count">2</span>
+          </button>
+          <button
+            type="button"
+            class="filter-btn"
+            role="tab"
+            aria-selected="false"
+            data-filter="uxui"
+          >
+            <span>UI/UX Design</span>
+            <span class="filter-count">1</span>
+          </button>
+          <button
+            type="button"
+            class="filter-btn"
+            role="tab"
+            aria-selected="false"
+            data-filter="game"
+          >
+            <span>Game &amp; 3D</span>
+            <span class="filter-count">1</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Glass HUD Selected Projects List -->
+      <div class="hud-glass-card selected-projects-card">
+        <div class="selected-projects-list" id="projects-grid">
+          <!-- PROJECT 01: MatchWork -->
+          <article
+            class="project-card selected-project-row"
+            data-project-id="matchwork"
+            data-categories="web"
+            tabindex="0"
+            role="button"
+            aria-label="Open case study for MatchWork — Job Matching Platform"
+          >
+            <div class="sp-row-left">
+              <span class="sp-index" aria-hidden="true">_01.</span>
+              <div class="sp-main">
+                <div class="sp-title-wrap">
+                  <h3 class="sp-title">MatchWork</h3>
+                  <span class="sp-subtitle">Job Matching Platform</span>
+                </div>
+                <div class="sp-stack" aria-label="Technologies used">
+                  <span>Node.js</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Express.js</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>MySQL</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>REST API</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Jest</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sp-row-right">
+              <div class="sp-preview-thumb" aria-hidden="true">
+                <img
+                  src="./assets/matchwork-preview.png"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="sp-actions">
+                <span class="role-badge badge-blue">Full-Stack Developer</span>
+                <a
+                  href="https://github.com/Chanyut-Benja/MatchWork-Prototype"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-github-link"
+                  aria-label="View MatchWork on GitHub"
+                  title="github.com/Chanyut-Benja/MatchWork-Prototype"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+                <span class="sp-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7"></path>
+                    <path d="M7 7h10v10"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 02: EasyDorm -->
+          <article
+            class="project-card selected-project-row"
+            data-project-id="easydorm"
+            data-categories="uxui web"
+            tabindex="0"
+            role="button"
+            aria-label="Open case study for EasyDorm — Smart Dormitory Management System"
+          >
+            <div class="sp-row-left">
+              <span class="sp-index" aria-hidden="true">_02.</span>
+              <div class="sp-main">
+                <div class="sp-title-wrap">
+                  <h3 class="sp-title">EasyDorm</h3>
+                  <span class="sp-subtitle">Smart Dormitory System</span>
+                </div>
+                <div class="sp-stack" aria-label="Technologies used">
+                  <span>Figma</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Product Design</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>UX/UI</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Responsive Web</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sp-row-right">
+              <div class="sp-preview-thumb" aria-hidden="true">
+                <img
+                  src="./assets/easydorm-preview.png"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="sp-actions">
+                <span class="role-badge badge-cyan">Product Design &amp; Web</span>
+                <a
+                  href="https://github.com/Chanyut-Benja/EasyDorm-Upgrade"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-github-link"
+                  aria-label="View EasyDorm on GitHub"
+                  title="github.com/Chanyut-Benja/EasyDorm-Upgrade"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+                <span class="sp-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7"></path>
+                    <path d="M7 7h10v10"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 03: Subject N: Lab Breakout -->
+          <article
+            class="project-card selected-project-row"
+            data-project-id="subjectn"
+            data-categories="game"
+            tabindex="0"
+            role="button"
+            aria-label="Open case study for Subject N: Lab Breakout — 2D Action Rogue-lite"
+          >
+            <div class="sp-row-left">
+              <span class="sp-index" aria-hidden="true">_03.</span>
+              <div class="sp-main">
+                <div class="sp-title-wrap">
+                  <h3 class="sp-title">Subject N: Lab Breakout</h3>
+                  <span class="sp-subtitle">2D Action Rogue-lite</span>
+                </div>
+                <div class="sp-stack" aria-label="Technologies used">
+                  <span>Unity</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>C#</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Game Systems</span>
+                  <span class="sp-dot" aria-hidden="true"></span>
+                  <span>Adobe Illustrator</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sp-row-right">
+              <div class="sp-preview-thumb" aria-hidden="true">
+                <img
+                  src="./assets/subjectn-menu.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="sp-actions">
+                <span class="role-badge badge-hybrid">Game Dev • Team of 6</span>
+                <a
+                  href="https://github.com/Chanyut-Benja/lab-breakout-roguelite"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-github-link"
+                  aria-label="View Subject N: Lab Breakout on GitHub"
+                  title="github.com/Chanyut-Benja/lab-breakout-roguelite"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+                <span class="sp-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7"></path>
+                    <path d="M7 7h10v10"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 02: MY STACK (from hero.html)
          ========================================================= -->
     <section id="skills" class="stack-section" aria-labelledby="stack-heading">
       <div class="stack-header">
@@ -240,7 +515,7 @@
             <line x1="3.34" y1="7" x2="20.66" y2="17"></line>
             <line x1="20.66" y1="7" x2="3.34" y2="17"></line>
           </svg>
-          <span><span class="stack-hud-index">01 //</span> MY STACK</span>
+          <span><span class="stack-hud-index">02 //</span> MY STACK</span>
         </h2>
       </div>
 
@@ -465,262 +740,6 @@
               <span class="stack-name">Git / GitHub</span>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION 02: FEATURED WORKS (index.html data in hero.html HUD style)
-         ========================================================= -->
-    <section id="projects" class="hud-section projects-section" aria-labelledby="projects-heading">
-      <div class="section-bar">
-        <div class="section-bar-text">
-          <div class="stack-hud-tag">
-            <svg class="stack-asterisk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-              <line x1="12" y1="2" x2="12" y2="22"></line>
-              <line x1="3.34" y1="7" x2="20.66" y2="17"></line>
-              <line x1="20.66" y1="7" x2="3.34" y2="17"></line>
-            </svg>
-            <span><span class="stack-hud-index">02 //</span> SELECTED PROJECTS</span>
-          </div>
-          <h2 id="projects-heading" class="hud-section-title">FEATURED WORKS</h2>
-          <p class="hud-section-subtitle">
-            Select any project row to inspect the problem statement, architecture, and design process.
-          </p>
-        </div>
-
-        <!-- Interactive Filter Bar -->
-        <div class="filter-bar hud-filter-bar" role="tablist" aria-label="Filter Projects by Category">
-          <button
-            type="button"
-            class="filter-btn is-active"
-            role="tab"
-            aria-selected="true"
-            data-filter="all"
-          >
-            <span>All</span>
-            <span class="filter-count">3</span>
-          </button>
-          <button
-            type="button"
-            class="filter-btn"
-            role="tab"
-            aria-selected="false"
-            data-filter="web"
-          >
-            <span>Web &amp; Backend</span>
-            <span class="filter-count">2</span>
-          </button>
-          <button
-            type="button"
-            class="filter-btn"
-            role="tab"
-            aria-selected="false"
-            data-filter="uxui"
-          >
-            <span>UI/UX Design</span>
-            <span class="filter-count">1</span>
-          </button>
-          <button
-            type="button"
-            class="filter-btn"
-            role="tab"
-            aria-selected="false"
-            data-filter="game"
-          >
-            <span>Game &amp; 3D</span>
-            <span class="filter-count">1</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Glass HUD Selected Projects List -->
-      <div class="hud-glass-card selected-projects-card">
-        <div class="selected-projects-list" id="projects-grid">
-          <!-- PROJECT 01: MatchWork -->
-          <article
-            class="project-card selected-project-row"
-            data-project-id="matchwork"
-            data-categories="web"
-            tabindex="0"
-            role="button"
-            aria-label="Open case study for MatchWork — Job Matching Platform"
-          >
-            <div class="sp-row-left">
-              <span class="sp-index" aria-hidden="true">_01.</span>
-              <div class="sp-main">
-                <div class="sp-title-wrap">
-                  <h3 class="sp-title">MatchWork</h3>
-                  <span class="sp-subtitle">Job Matching Platform</span>
-                </div>
-                <div class="sp-stack" aria-label="Technologies used">
-                  <span>Node.js</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>Express.js</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>MySQL</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>REST API</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>Jest</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="sp-row-right">
-              <div class="sp-preview-thumb" aria-hidden="true">
-                <img
-                  src="./assets/matchwork-preview.png"
-                  alt=""
-                  loading="lazy"
-                />
-              </div>
-              <div class="sp-actions">
-                <span class="role-badge badge-blue">Full-Stack Developer</span>
-                <a
-                  href="https://github.com/Chanyut-Benja/MatchWork-Prototype"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-github-link"
-                  aria-label="View MatchWork on GitHub"
-                  title="github.com/Chanyut-Benja/MatchWork-Prototype"
-                >
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-                <span class="sp-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </article>
-
-          <!-- PROJECT 02: EasyDorm -->
-          <article
-            class="project-card selected-project-row"
-            data-project-id="easydorm"
-            data-categories="uxui web"
-            tabindex="0"
-            role="button"
-            aria-label="Open case study for EasyDorm — Smart Dormitory Management System"
-          >
-            <div class="sp-row-left">
-              <span class="sp-index" aria-hidden="true">_02.</span>
-              <div class="sp-main">
-                <div class="sp-title-wrap">
-                  <h3 class="sp-title">EasyDorm</h3>
-                  <span class="sp-subtitle">Smart Dormitory System</span>
-                </div>
-                <div class="sp-stack" aria-label="Technologies used">
-                  <span>Figma</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>Product Design</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>UX/UI</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>Responsive Web</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="sp-row-right">
-              <div class="sp-preview-thumb" aria-hidden="true">
-                <img
-                  src="./assets/easydorm-preview.png"
-                  alt=""
-                  loading="lazy"
-                />
-              </div>
-              <div class="sp-actions">
-                <span class="role-badge badge-cyan">Product Design &amp; Web</span>
-                <a
-                  href="https://github.com/Chanyut-Benja/EasyDorm-Upgrade"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-github-link"
-                  aria-label="View EasyDorm on GitHub"
-                  title="github.com/Chanyut-Benja/EasyDorm-Upgrade"
-                >
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-                <span class="sp-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </article>
-
-          <!-- PROJECT 03: Subject N: Lab Breakout -->
-          <article
-            class="project-card selected-project-row"
-            data-project-id="subjectn"
-            data-categories="game"
-            tabindex="0"
-            role="button"
-            aria-label="Open case study for Subject N: Lab Breakout — 2D Action Rogue-lite"
-          >
-            <div class="sp-row-left">
-              <span class="sp-index" aria-hidden="true">_03.</span>
-              <div class="sp-main">
-                <div class="sp-title-wrap">
-                  <h3 class="sp-title">Subject N: Lab Breakout</h3>
-                  <span class="sp-subtitle">2D Action Rogue-lite</span>
-                </div>
-                <div class="sp-stack" aria-label="Technologies used">
-                  <span>Unity</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>C#</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>Game Systems</span>
-                  <span class="sp-dot" aria-hidden="true"></span>
-                  <span>Adobe Illustrator</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="sp-row-right">
-              <div class="sp-preview-thumb sp-preview-hud" aria-hidden="true">
-                <div class="sp-mini-hud">
-                  <span class="sp-mini-hud-tag">SECTOR B-03</span>
-                  <div class="sp-mini-hp"><div class="sp-mini-hp-fill"></div></div>
-                  <span class="sp-mini-hud-boon">Overclock Dash</span>
-                </div>
-              </div>
-              <div class="sp-actions">
-                <span class="role-badge badge-hybrid">Game Dev • Team of 6</span>
-                <a
-                  href="https://github.com/Chanyut-Benja/lab-breakout-roguelite"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-github-link"
-                  aria-label="View Subject N: Lab Breakout on GitHub"
-                  title="github.com/Chanyut-Benja/lab-breakout-roguelite"
-                >
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-                <span class="sp-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>
