@@ -928,7 +928,7 @@
     }
   });
 
-  // Bidirectional Scroll-Reveal Choreography (animates on scroll down & scroll up)
+  // Scroll-Reveal Choreography (reveals cleanly on scroll into view)
   const revealTargets = Array.from(
     document.querySelectorAll(
       '.stack-hud-tag:not(.hud-tag-compact), .hud-section-title, .hud-section-subtitle, .stack-row, .selected-project-row, .edu-hud-row, .contact-row'
@@ -956,21 +956,6 @@
     }, 700 + delayMs);
   }
 
-  function hideRowElement(row, isAboveViewport) {
-    if (row._revealTimer) {
-      clearTimeout(row._revealTimer);
-      row._revealTimer = null;
-    }
-    row.style.transitionDelay = '0ms';
-    setStackItemDelays(row, false);
-    row.classList.remove('is-visible');
-    if (isAboveViewport) {
-      row.classList.add('is-scroll-above');
-    } else {
-      row.classList.remove('is-scroll-above');
-    }
-  }
-
   if (revealTargets.length > 0) {
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       revealTargets.forEach(function (row) {
@@ -983,19 +968,46 @@
           let batchIdx = 0;
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              revealRowElement(entry.target, batchIdx * 80);
+              revealRowElement(entry.target, batchIdx * 60);
               batchIdx += 1;
-            } else {
-              hideRowElement(entry.target, entry.boundingClientRect.top < 0);
+              rowObserver.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+        { threshold: 0.01, rootMargin: '0px 0px 40px 0px' }
       );
 
       revealTargets.forEach(function (row) {
         rowObserver.observe(row);
       });
+
+      function revealInOrAboveViewport() {
+        let batchIdx = 0;
+        const thresholdY = window.innerHeight + 60;
+        revealTargets.forEach(function (row) {
+          if (row.classList.contains('is-visible')) return;
+          const rect = row.getBoundingClientRect();
+          if (rect.top < thresholdY) {
+            revealRowElement(row, Math.min(batchIdx * 40, 160));
+            batchIdx += 1;
+            rowObserver.unobserve(row);
+          }
+        });
+      }
+
+      window.addEventListener('hashchange', function () {
+        setTimeout(revealInOrAboveViewport, 60);
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          setTimeout(revealInOrAboveViewport, 80);
+          setTimeout(revealInOrAboveViewport, 380);
+        });
+      });
+
+      window.addEventListener('scroll', revealInOrAboveViewport, { passive: true });
+      revealInOrAboveViewport();
     }
   }
 })();
