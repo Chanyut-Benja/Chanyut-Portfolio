@@ -14,6 +14,7 @@
     matchwork: {
       id: 'matchwork',
       indexLabel: '01 / 03',
+      year: '2025',
       roleBadge: 'Full-Stack Engineering',
       badgeClass: 'badge-blue',
       imageSrc: './assets/matchwork-preview.png',
@@ -78,6 +79,7 @@
     easydorm: {
       id: 'easydorm',
       indexLabel: '02 / 03',
+      year: '2025',
       roleBadge: 'Product Design & Web',
       badgeClass: 'badge-cyan',
       imageSrc: './assets/easydorm-preview.png',
@@ -141,6 +143,7 @@
     subjectn: {
       id: 'subjectn',
       indexLabel: '03 / 03',
+      year: '2024',
       roleBadge: 'Game Development • Team of 6',
       badgeClass: 'badge-hybrid',
       imageSrc: null,
@@ -309,34 +312,36 @@
   });
 
   /* ========================================================================
-     4. SLIDE-OVER DRAWER FOR DEEP-DIVE PROJECT DETAILS
+     4. FULL-PAGE PROJECT DETAIL VIEW & COBALT-CYAN CURTAIN TRANSITION
      ======================================================================== */
-  const drawer = document.getElementById('project-drawer');
-  const backdrop = document.getElementById('drawer-backdrop');
-  const drawerBody = document.getElementById('drawer-body');
-  const drawerCloseBtn = document.getElementById('drawer-close');
-  const drawerCloseBottomBtn = document.getElementById('drawer-close-bottom');
-  const drawerPrevBtn = document.getElementById('drawer-prev');
-  const drawerNextBtn = document.getElementById('drawer-next');
+  const mainContent = document.getElementById('main-content');
+  const detailView = document.getElementById('project-detail-view');
+  const pageTransition = document.getElementById('page-transition');
+  const pdBackBtn = document.getElementById('pd-back-btn');
+  const pdPrevBtn = document.getElementById('pd-prev-btn');
+  const pdNextBtn = document.getElementById('pd-next-btn');
 
-  // Dynamic Drawer Content Nodes
-  const drawerRoleBadge = document.getElementById('drawer-role-badge');
-  const drawerIndexBadge = document.getElementById('drawer-index-badge');
-  const drawerBanner = document.getElementById('drawer-banner');
-  const drawerTitle = document.getElementById('drawer-title');
-  const drawerSubtitle = document.getElementById('drawer-subtitle');
-  const drawerFacts = document.getElementById('drawer-facts');
-  const drawerProblem = document.getElementById('drawer-problem');
-  const drawerArchHeading = document.getElementById('drawer-arch-heading');
-  const drawerArchIntro = document.getElementById('drawer-architecture-intro');
-  const drawerFlowSteps = document.getElementById('drawer-flow-steps');
-  const drawerHighlights = document.getElementById('drawer-highlights');
-  const drawerTechTags = document.getElementById('drawer-tech-tags');
-  const drawerGithubBtn = document.getElementById('drawer-github-btn');
+  const pdRoleBadge = document.getElementById('pd-role-badge');
+  const pdIndexBadge = document.getElementById('pd-index-badge');
+  const pdTitle = document.getElementById('pd-title');
+  const pdSubtitle = document.getElementById('pd-subtitle');
+  const pdGithubIconLink = document.getElementById('pd-github-icon-link');
+  const pdYear = document.getElementById('pd-year');
+  const pdRole = document.getElementById('pd-role');
+  const pdTechLine = document.getElementById('pd-tech-line');
+  const pdSummary = document.getElementById('pd-summary');
+  const pdProblem = document.getElementById('pd-problem');
+  const pdHighlights = document.getElementById('pd-highlights');
+  const pdArchHeading = document.getElementById('pd-arch-heading');
+  const pdArchIntro = document.getElementById('pd-architecture-intro');
+  const pdFlowSteps = document.getElementById('pd-flow-steps');
+  const pdShowcase = document.getElementById('pd-showcase');
+  const pdGithubBtn = document.getElementById('pd-github-btn');
 
   let activeProjectId = null;
   let lastFocusedTrigger = null;
-  let closeTimer = null;
+  let savedScrollY = 0;
+  let isTransitioning = false;
 
   function escapeHtml(str) {
     return String(str)
@@ -347,136 +352,178 @@
       .replace(/'/g, '&#39;');
   }
 
-  function renderDrawerContent(projectId) {
+  function renderProjectDetail(projectId) {
     const data = PROJECTS_DATA[projectId];
     if (!data) return;
 
     activeProjectId = projectId;
 
-    drawerRoleBadge.className = 'role-badge ' + data.badgeClass;
-    drawerRoleBadge.textContent = data.roleBadge;
-    drawerIndexBadge.textContent = data.indexLabel;
-
-    const screenshotMarkup = data.imageSrc
-      ? '<div class="drawer-screenshot-frame">' +
-        '<img src="' + escapeHtml(data.imageSrc) + '" alt="' + escapeHtml(data.imageAlt || data.title) + '" class="drawer-screenshot-img" loading="lazy" />' +
-        '</div>'
-      : '';
-
-    drawerBanner.innerHTML =
-      screenshotMarkup +
-      '<span class="drawer-banner-kicker">' + escapeHtml(data.bannerKicker) + '</span>' +
-      '<p class="drawer-banner-summary">' + escapeHtml(data.bannerSummary) + '</p>';
-
-    drawerTitle.textContent = data.title;
-    drawerSubtitle.textContent = data.subtitle;
-
-    drawerFacts.innerHTML = data.facts
-      .map(function (fact) {
-        return (
-          '<div class="fact-box">' +
-          '<span class="fact-label">' + escapeHtml(fact.label) + '</span>' +
-          '<span class="fact-value">' + escapeHtml(fact.value) + '</span>' +
-          '</div>'
-        );
-      })
-      .join('');
-
-    drawerProblem.textContent = data.problem;
-    drawerArchHeading.textContent = data.archHeading;
-    drawerArchIntro.textContent = data.architectureIntro;
-
-    drawerFlowSteps.innerHTML = data.flowSteps
-      .map(function (step) {
-        return (
-          '<div class="flow-step-card">' +
-          '<span class="flow-step-tag">' + escapeHtml(step.tag) + '</span>' +
-          '<div class="flow-step-title">' + escapeHtml(step.title) + '</div>' +
-          '<p class="flow-step-desc">' + escapeHtml(step.desc) + '</p>' +
-          '</div>'
-        );
-      })
-      .join('');
-
-    drawerHighlights.innerHTML = data.highlights
-      .map(function (item) {
-        return '<li>' + escapeHtml(item) + '</li>';
-      })
-      .join('');
-
-    drawerTechTags.innerHTML = data.techStack
-      .map(function (tech) {
-        return '<span class="mono-tag">' + escapeHtml(tech) + '</span>';
-      })
-      .join('');
-
-    drawerGithubBtn.setAttribute('href', data.githubUrl);
-
-    if (drawerBody) {
-      drawerBody.scrollTop = 0;
+    if (pdRoleBadge) {
+      pdRoleBadge.className = 'role-badge ' + data.badgeClass;
+      pdRoleBadge.textContent = data.roleBadge;
     }
-  }
+    if (pdIndexBadge) pdIndexBadge.textContent = data.indexLabel;
+    if (pdTitle) pdTitle.textContent = data.title;
+    if (pdSubtitle) pdSubtitle.textContent = data.subtitle;
+    if (pdGithubIconLink) pdGithubIconLink.setAttribute('href', data.githubUrl);
+    if (pdYear) pdYear.textContent = data.year || '2025';
+    if (pdRole) pdRole.textContent = (data.facts && data.facts[0] && data.facts[0].value) || data.roleBadge;
+    if (pdTechLine) pdTechLine.textContent = data.techStack.join(', ');
+    if (pdSummary) pdSummary.textContent = data.bannerSummary;
+    if (pdProblem) pdProblem.textContent = data.problem;
+    if (pdArchHeading) pdArchHeading.textContent = data.archHeading;
+    if (pdArchIntro) pdArchIntro.textContent = data.architectureIntro;
 
-  function openDrawer(projectId, triggerEl) {
-    if (!drawer || !backdrop || !PROJECTS_DATA[projectId]) return;
-
-    if (closeTimer) {
-      clearTimeout(closeTimer);
-      closeTimer = null;
+    if (pdHighlights) {
+      pdHighlights.innerHTML = data.highlights
+        .map(function (item) {
+          return '<li>' + escapeHtml(item) + '</li>';
+        })
+        .join('');
     }
 
-    lastFocusedTrigger = triggerEl || document.activeElement;
-    renderDrawerContent(projectId);
+    if (pdFlowSteps) {
+      pdFlowSteps.innerHTML = data.flowSteps
+        .map(function (step) {
+          return (
+            '<div class="pd-flow-card">' +
+            '<span class="pd-flow-tag">' + escapeHtml(step.tag) + '</span>' +
+            '<div class="pd-flow-title">' + escapeHtml(step.title) + '</div>' +
+            '<p class="pd-flow-desc">' + escapeHtml(step.desc) + '</p>' +
+            '</div>'
+          );
+        })
+        .join('');
+    }
 
-    backdrop.hidden = false;
-    drawer.hidden = false;
-    drawer.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('drawer-open');
-
-    requestAnimationFrame(function () {
-      backdrop.classList.add('is-visible');
-      drawer.classList.add('is-open');
-      if (drawerCloseBtn) {
-        drawerCloseBtn.focus();
+    if (pdShowcase) {
+      if (data.imageSrc) {
+        pdShowcase.innerHTML =
+          '<div class="pd-showcase-frame">' +
+          '<img src="' + escapeHtml(data.imageSrc) + '" alt="' + escapeHtml(data.imageAlt || data.title) + '" class="pd-showcase-img" loading="lazy" />' +
+          '</div>';
+      } else {
+        pdShowcase.innerHTML =
+          '<div class="pd-game-showcase">' +
+          '<div class="pd-game-hud-top">' +
+          '<span>SECTOR B-03 // CONTAINMENT LAB</span>' +
+          '<span>UNITY 2D • C# SYSTEMS</span>' +
+          '</div>' +
+          '<div class="pd-game-hp-bar"><div class="pd-game-hp-fill"></div></div>' +
+          '<div class="pd-game-augments">' +
+          '<div class="pd-game-augment-card">' +
+          '<span class="pd-game-augment-tag">AUGMENT 01</span>' +
+          '<div class="pd-game-augment-name">Overclock Dash</div>' +
+          '<p class="pd-game-augment-desc">Modular dash cooldown &amp; kinetic burst modifier.</p>' +
+          '</div>' +
+          '<div class="pd-game-augment-card">' +
+          '<span class="pd-game-augment-tag">AUGMENT 02</span>' +
+          '<div class="pd-game-augment-name">Arc Capacitor</div>' +
+          '<p class="pd-game-augment-desc">Chain-lightning synergy on primary weapon hits.</p>' +
+          '</div>' +
+          '<div class="pd-game-augment-card">' +
+          '<span class="pd-game-augment-tag">META TREE</span>' +
+          '<div class="pd-game-augment-name">Skill Point Graph</div>' +
+          '<p class="pd-game-augment-desc">Persistent node unlocks with prerequisite validation.</p>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
       }
-    });
+    }
+
+    if (pdGithubBtn) pdGithubBtn.setAttribute('href', data.githubUrl);
   }
 
-  function closeDrawer() {
-    if (!drawer || !backdrop || drawer.hidden) return;
+  function runPageTransition(onCovered, skipAnimation) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (skipAnimation || reduceMotion || !pageTransition) {
+      onCovered();
+      return;
+    }
 
-    backdrop.classList.remove('is-visible');
-    drawer.classList.remove('is-open');
-    drawer.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('drawer-open');
+    isTransitioning = true;
+    pageTransition.classList.remove('is-leaving');
+    pageTransition.classList.add('is-active', 'is-entering');
 
-    closeTimer = setTimeout(function () {
-      backdrop.hidden = true;
-      drawer.hidden = true;
+    setTimeout(function () {
+      onCovered();
+      pageTransition.classList.remove('is-entering');
+      pageTransition.classList.add('is-leaving');
+
+      setTimeout(function () {
+        pageTransition.classList.remove('is-active', 'is-leaving');
+        isTransitioning = false;
+      }, 380);
+    }, 340);
+  }
+
+  function openProjectDetail(projectId, triggerEl, options) {
+    const opts = options || {};
+    if (!detailView || !mainContent || !PROJECTS_DATA[projectId] || isTransitioning) return;
+
+    const wasAlreadyOpen = !detailView.hidden;
+    if (!wasAlreadyOpen) {
+      savedScrollY = window.scrollY;
+      lastFocusedTrigger = triggerEl || document.activeElement;
+    }
+
+    runPageTransition(function () {
+      renderProjectDetail(projectId);
+      mainContent.hidden = true;
+      detailView.hidden = false;
+      detailView.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('project-detail-active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      if (opts.updateHash !== false) {
+        const targetHash = '#project/' + projectId;
+        if (window.location.hash !== targetHash) {
+          history.pushState({ projectId: projectId }, '', targetHash);
+        }
+      }
+
+      if (pdBackBtn) {
+        pdBackBtn.focus({ preventScroll: true });
+      }
+    }, opts.skipAnimation);
+  }
+
+  function closeProjectDetail(options) {
+    const opts = options || {};
+    if (!detailView || !mainContent || detailView.hidden || isTransitioning) return;
+
+    runPageTransition(function () {
+      detailView.hidden = true;
+      detailView.setAttribute('aria-hidden', 'true');
+      mainContent.hidden = false;
+      document.body.classList.remove('project-detail-active');
       activeProjectId = null;
-      if (lastFocusedTrigger && typeof lastFocusedTrigger.focus === 'function') {
-        lastFocusedTrigger.focus();
+
+      if (opts.updateHash !== false) {
+        history.pushState(null, '', '#projects');
       }
-    }, 320);
+
+      window.scrollTo({ top: savedScrollY || 0, behavior: 'instant' });
+      if (lastFocusedTrigger && typeof lastFocusedTrigger.focus === 'function') {
+        lastFocusedTrigger.focus({ preventScroll: true });
+      }
+    }, opts.skipAnimation);
   }
 
-  function navigateDrawer(direction) {
-    if (!activeProjectId) return;
+  function navigateProjectDetail(direction) {
+    if (!activeProjectId || isTransitioning) return;
     const idx = PROJECT_ORDER.indexOf(activeProjectId);
     if (idx === -1) return;
     const nextIdx = (idx + direction + PROJECT_ORDER.length) % PROJECT_ORDER.length;
-    renderDrawerContent(PROJECT_ORDER[nextIdx]);
+    openProjectDetail(PROJECT_ORDER[nextIdx], null, { skipAnimation: false });
   }
 
-  // Bind Project Card Click & Keyboard Activation
+  // Bind Project Row Click & Keyboard Activation
   projectCards.forEach(function (card) {
     card.addEventListener('click', function (event) {
-      // Allow direct clicks on the GitHub repository badge link without opening the drawer
-      if (event.target.closest('a')) {
-        return;
-      }
+      if (event.target.closest('a')) return;
       const projectId = card.dataset.projectId;
-      openDrawer(projectId, card);
+      openProjectDetail(projectId, card);
     });
 
     card.addEventListener('keydown', function (event) {
@@ -484,43 +531,55 @@
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         const projectId = card.dataset.projectId;
-        openDrawer(projectId, card);
+        openProjectDetail(projectId, card);
       }
     });
   });
 
-  if (backdrop) {
-    backdrop.addEventListener('click', closeDrawer);
-  }
-  if (drawerCloseBtn) {
-    drawerCloseBtn.addEventListener('click', closeDrawer);
-  }
-  if (drawerCloseBottomBtn) {
-    drawerCloseBottomBtn.addEventListener('click', closeDrawer);
-  }
-  if (drawerPrevBtn) {
-    drawerPrevBtn.addEventListener('click', function () {
-      navigateDrawer(-1);
+  if (pdBackBtn) {
+    pdBackBtn.addEventListener('click', function () {
+      closeProjectDetail();
     });
   }
-  if (drawerNextBtn) {
-    drawerNextBtn.addEventListener('click', function () {
-      navigateDrawer(1);
+  if (pdPrevBtn) {
+    pdPrevBtn.addEventListener('click', function () {
+      navigateProjectDetail(-1);
+    });
+  }
+  if (pdNextBtn) {
+    pdNextBtn.addEventListener('click', function () {
+      navigateProjectDetail(1);
     });
   }
 
   document.addEventListener('keydown', function (event) {
-    if (!drawer || drawer.hidden) return;
+    if (!detailView || detailView.hidden) return;
 
     if (event.key === 'Escape') {
       event.preventDefault();
-      closeDrawer();
+      closeProjectDetail();
     } else if (event.key === 'ArrowLeft') {
-      navigateDrawer(-1);
+      navigateProjectDetail(-1);
     } else if (event.key === 'ArrowRight') {
-      navigateDrawer(1);
+      navigateProjectDetail(1);
     }
   });
+
+  // Sync with browser Back / Forward buttons & direct hash links
+  function handleHashRoute(skipAnimation) {
+    const match = window.location.hash.match(/^#project\/([a-z0-9-]+)$/i);
+    if (match && PROJECTS_DATA[match[1]]) {
+      openProjectDetail(match[1], null, { updateHash: false, skipAnimation: !!skipAnimation });
+    } else if (detailView && !detailView.hidden) {
+      closeProjectDetail({ updateHash: false, skipAnimation: !!skipAnimation });
+    }
+  }
+
+  window.addEventListener('popstate', function () {
+    handleHashRoute(false);
+  });
+
+  handleHashRoute(true);
 
   /* ========================================================================
      5. ONE-CLICK CLIPBOARD COPY + FLOATING TOAST
